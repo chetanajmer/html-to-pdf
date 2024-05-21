@@ -1,8 +1,8 @@
 <?php 
   require_once('./helpers.php');
+  setlocale(LC_MONETARY, 'en_IN');
 
-
-  $url = "https://test.com";
+  $url = "https://www.martonline.co.in/martonlinev2/new-api/ekyc1.php";
   $ch = curl_init($url);
   curl_setopt($ch, CURLOPT_HEADER, false);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -29,13 +29,13 @@
   ?>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="all.min.css"/>
-	<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+	<link rel="stylesheet" type="text/css" href="./bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./all.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./stylesheet.css"/>
   <style>
     @page { margin: 180px 50px; }
     #header { position: fixed; left: 0px; top: -160px; right: 0px; height: 150px;  text-align: center; }
-    #footer { position: fixed; left: 0px; bottom: -240px; right: 0px; height: 150px; }
+    #footer { position: fixed; left: 0px; bottom: -200px; right: 0px; height: 120px; }
     #footer .page:after { content: counter(page, upper-roman); }
   </style>
 <body  style="background-color:#fff;">
@@ -104,14 +104,15 @@
   <div id="content">
 
   	 <h4 class="text-4" style="padding-top:10px;">CONSUMER INFORMATION:</h4>
-     <div class="table-responsive">
-      <table class="table  table-borderless text-1 table-sm">
+     <div class="table-responsive  ">
+      <table class="table table-striped table-borderless text-1 table-sm">
         <tbody>
           <tr>
             <td class="col-4"><span class="fw-600">NAME: </span><?php 
 
-            echo $data->response->NameSegment->ConsumerName1; 
+            echo $data->response->NameSegment->ConsumerName1 ." "; 
             checkisset($data->response->NameSegment,'ConsumerName2');
+            echo " ";
             checkisset($data->response->NameSegment,'ConsumerName3');
 
 
@@ -152,18 +153,18 @@
             <td class="col-4"><span class="fw-600" style="color:#00A6CA">SCORING FACTORS</td>
           </tr>
          
-          <tr >
-            <td class="col-4"><span class="" style="color:#00A6CA;"><?php echo $data->response->ScoreSegment->ScoreName; ?></td>
-            <td class="col-4"><span class="fw-600" style="font-size: 36px;color:#006a81;"><?php echo substr($data->response->ScoreSegment->Score,2); ?></td>
+          <tr style="background: #EDEDED;" >
+            <td class="col-4"><span class="" style="color:#006a81;"><?php echo $data->response->ScoreSegment->ScoreName; ?></td>
+            <td class="col-4"><span class="" style="font-size: 28px;color:#006a81;"><?php echo substr($data->response->ScoreSegment->Score,2); ?></td>
             <td class="col-4"><span class="fw-600"></td>
           </tr>
          
         </tbody>
       </table>
      </div>
-     <hr>
+     <hr style="background:#000000;color: #000000;">
 
-     <div class="table-responsive" >
+     <div class="table-responsive" style="padding:5px;">
       <table class="table text-1 table-sm table-borderless  table-striped" style="background: #EDEDED;">
         <thead>
           <tr>
@@ -175,7 +176,7 @@
           </tr>
 
           <tr>
-            <td colspan="4" class=""><span class="fw-600">Consumer not in CIBIL database or history older than 36 months</span><span class="float-end" style="color:red;">: -1 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span></td>
+            <td colspan="4" class=""><span class="fw-600">Consumer not in CIBIL database or history older than 36 months</span><span class="float-end" style="color:red;">: -1 &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span></td>
           </tr>
 
          
@@ -192,14 +193,17 @@
 
      <h4 class="text-4">IDENTIFICATION(S):</h4>
      <div class="table-responsive">
-      <table class="table  table-striped table-borderless text-1 table-sm">
-        <tbody>
+      <table class="table zebra_stripe  text-1 table-sm">
+       
+          <tbody>
           <tr style="font-size:10px;">
-            <td class="col-3" ><span class="fw-600 colorblue">IDENTIFICATION TYPE</span></td>
-            <td class="col-3"><span class="fw-600 colorblue">IDENTIFICATION NUMBER</span></td>
-            <td class="col-3"><span class="fw-600 colorblue">ISSUE DATE</span></td>
-            <td class="col-3"><span class="fw-600 colorblue">EXPIRATION DATE</span></td>
+            <th class="col-3" ><span class="fw-600 colorblue">IDENTIFICATION TYPE</span></th>
+            <th class="col-3"><span class="fw-600 colorblue">IDENTIFICATION NUMBER</span></th>
+            <th class="col-3"><span class="fw-600 colorblue">ISSUE DATE</span></th>
+            <th class="col-3"><span class="fw-600 colorblue">EXPIRATION DATE</span></th>
           </tr>
+       
+          
           <?php 
           if(is_array($data->response->IDSegment))
           {  
@@ -325,13 +329,13 @@
 
          
          
-        </tbody>
+          </tbody>
       </table>
      </div>
 
      <h4 class="text-4">TELEPHONE(S): </h4>
      <div class="table-responsive">
-      <table class="table  table-striped table-borderless text-1 table-sm">
+      <table class="table  zebra_stripe table-striped table-borderless text-1 table-sm">
         <tbody>
           <tr style="font-size:10px;">
             <td class="col-4"><span class="fw-600 colorblue">TELEPHONE TYPE</span></td>
@@ -371,6 +375,7 @@
 
                     ?></span></td>
                     <td class="col-4"><span class="fw-600 "><?php echo $teledata->TelephoneNumber; ?></span></td>
+                    <td class="col-4"></td>
                 
                   </tr>
              <?php     
@@ -417,7 +422,7 @@
 
      <h4 class="text-4">EMAIL CONTACT(S): </h4>
      <div class="table-responsive">
-      <table class="table   table-borderless text-1 table-sm">
+      <table class="table zebra_stripe  table-borderless text-1 table-sm">
         <tbody>
           <tr style="font-size:10px;">
             <td class="col-12"><span class="fw-600 colorblue">EMAIL ADDRESS</span></td>
@@ -454,7 +459,7 @@
 
      <h4 class="text-4">ADDRESS(ES): </h4>
      <div class="table-responsive">
-      <table class="table  table-striped table-borderless text-1 table-sm">
+      <table class="table  zebra_stripe table-striped table-borderless text-1 table-sm">
         <tbody>
 
 
@@ -594,7 +599,7 @@
 
      <h4 class="text-4">EMPLOYMENT INFORMATION:</h4>
      <div class="table-responsive">
-      <table class="table  table-striped table-borderless text-1 table-sm">
+      <table class="table  zebra_stripe table-striped table-borderless text-1 table-sm">
         <tbody>
           <tr style="font-size:10px;">
             <td class="col-2"><span class="fw-600 colorblue">ACCOUNT TYPE</span></td>
@@ -707,7 +712,7 @@
      <h4 class="text-4">SUMMARY:</h4>
      <h5 class="text-2 colorblue">ACCOUNT(S):</h5>
      <div class="table-responsive">
-      <table class="table  table-striped table-borderless text-1 table-sm">
+      <table class="table  zebra_stripe table-striped table-borderless text-1 table-sm">
         <tbody>
           <tr style="font-size:10px;">
             <td class="col-2"><span class="fw-600 colorblue">ACCOUNT TYPE</span></td>
@@ -789,9 +794,9 @@
           ?>
           <tr style="font-size:10px;">
             <td class="col-2"><span class="fw-600 ">All Accounts</span></td>
-            <td class="col-2"><span class="fw-600 ">TOTAL: <?php echo $accountscount; ?></span></td>
-            <td class="col-4"><span class="fw-600 ">HIGH CR/SANC. AMT: <?php echo array_sum($totalamount);   ?></span></td>
-            <td class="col-2"><span class="fw-600 ">CURRENT: <?php echo array_sum($currentbalance); ?></span></td>
+            <td class="col-2"><span class="fw-600 ">TOTAL: <?php echo IND_money_format($accountscount); ?></span></td>
+            <td class="col-4"><span class="fw-600 ">HIGH CR/SANC. AMT: <?php echo IND_money_format(array_sum($totalamount));   ?></span></td>
+            <td class="col-2"><span class="fw-600 ">CURRENT: <?php echo IND_money_format(array_sum($currentbalance)); ?></span></td>
             <td class="col-2"><span class="fw-600 ">RECENT: <?php
 
               
@@ -808,7 +813,7 @@
             <td class="col-2"><span class="fw-600 "></span></td>
             <td class="col-2"><span class="fw-600 ">OVERDUE: <?php echo count($overduecount); ?></span></td>
             <td class="col-4"><span class="fw-600 "></span></td>
-            <td class="col-2"><span class="fw-600 ">OVERDUE:  <?php echo array_sum($overduecount); ?> </span></td>
+            <td class="col-2"><span class="fw-600 ">OVERDUE:  <?php echo IND_money_format(array_sum($overduecount)); ?> </span></td>
             <td class="col-2"><span class="fw-600 ">OLDEST: <?php 
 
 
@@ -837,7 +842,7 @@
 
      <h5 class="text-2">ENQUIRIES</h5>
      <div class="table-responsive">
-      <table class="table  table-striped table-borderless text-1 table-sm">
+      <table class="table zebra_stripe table-striped table-borderless text-1 table-sm">
         <tbody>
           <tr style="font-size:10px;">
             <td class="col-2"><span class="fw-600 colorblue">ENQUIRY PURPOSE</span></td>
@@ -931,16 +936,9 @@
 
      <h5 class="text-2 ">ACCOUNT(S):</h5>
      <div class="table-responsive">
-      <table class="table  table-striped table-borderless text-1 table-sm">
+      <table class="table zebra_stripe table-striped table-borderless text-1 table-sm">
         <tbody>
-          <tr style="font-size:10px;">
-            <td class="col-4"><span class="fw-600 colorblue ">ACCOUNT</span></td>
-            <td class="col-4"><span class="fw-600  colorblue">DATES</span></td>
-            <td class="col-3"><span class="fw-600 colorblue">AMOUNTS</span></td>
-            <td class="col-1"><span class="fw-600 colorblue ">STATUS</span></td>
-           
-           
-          </tr>
+          
           <?php
           if(is_array($data->response->Account))
           {
@@ -955,38 +953,85 @@
               ?>  
 
                   <!-- Repeating parent row -->
-                    <tr>
+                    <tr ><td>
+                      <table class="table table-borderless text-1 table-sm" style="margin-bottom:15px;">
+                        <tbody>
                         <tr style="font-size:10px;">
-                          <td class="col-4"><span class="fw-600  ">MEMBER NAME: </span><?php echo $creditdata->Account_NonSummary_Segment_Fields[0]->ReportingMemberShortName; ?></td>
+                          <td class="col-4"><span class="fw-600 colorblue ">ACCOUNT</span></td>
+                          <td class="col-4"><span class="fw-600  colorblue">DATES</span></td>
+                          <td class="col-3"><span class="fw-600 colorblue">AMOUNTS</span></td>
+                          <td class="col-1"><span class="fw-600 colorblue ">STATUS</span></td>
+                         
+                         
+                        </tr>
+                        <tr style="font-size:10px;">
+                          <td class="col-4 memtextblack"><span class="fw-600  memtext">MEMBER NAME: </span><?php echo $creditdata->Account_NonSummary_Segment_Fields[0]->ReportingMemberShortName; ?></span></td>
 
-                          <td class="col-4"><span class="fw-600  ">OPENED:</span> <?php 
+                          <td class="col-4 memtextblack"><span class="fw-600  memtext">OPENED:</span> <?php 
                               echo dateformater($creditdata->Account_NonSummary_Segment_Fields[0]->DateOpenedOrDisbursed);
                              ?></td>
 
-                          <td class="col-3"><span class="fw-600 ">SANCTIONED:</span> <?php echo $creditdata->Account_NonSummary_Segment_Fields[0]->HighCreditOrSanctionedAmount; ?></td>
-                          <td class="col-1"><span class="fw-600  "></span></td> 
+                          <td class="col-3 memtextblack"><span class="fw-600 memtext">SANCTIONED:</span> <?php 
+                          echo IND_money_format($creditdata->Account_NonSummary_Segment_Fields[0]->HighCreditOrSanctionedAmount); ?>
+                          </td>
+                          <?php
+
+                          if(isset($creditdata->Account_NonSummary_Segment_Fields[0]->WrittenOffAndSettled)){
+                            ?>
+                            <td class="col-1" style="text-transform: uppercase;"><span class="fw-600  memtext">CREDIT FACILITY STATUS:<br></span>
+
+                             <?php  creditfacility($creditdata->Account_NonSummary_Segment_Fields[0]->WrittenOffAndSettled); ?>
+
+                            </td> 
+                          <?php  
+                          }
+                          else
+                          {
+                          ?>
+                              <td class="col-1"><span class="fw-600  memtext"></span></td>
+                          <?php
+                          } 
+                          ?>
+                          
                         </tr>
 
                         <tr style="font-size:10px;">
-                          <td class="col-4"><span class="fw-600  ">ACCOUNT NUMBER: </span> NOT DISCLOSED</td>
-                          <td class="col-4"><span class="fw-600  ">REPORTED AND CERTIFIED:</span> <?php 
+                          <td class="col-3"><span class="fw-600  memtext">ACCOUNT NUMBER: </span> NOT DISCLOSED</td>
+                          <td class="col-3"><span class="fw-600 memtext ">REPORTED AND CERTIFIED:</span> <?php 
                               echo dateformater($creditdata->Account_NonSummary_Segment_Fields[0]->DateReportedAndCertified);
                              ?></td>
-                          <td class="col-3"><span class="fw-600 ">PMT FREQ: </span><?php 
+                          <td class="col-3"><span class="fw-600 memtext">PMT FREQ: </span><?php 
 
                               if(isset($creditdata->Account_NonSummary_Segment_Fields[0]->PaymentFrequency)){
                                 echo paymentfrequency($creditdata->Account_NonSummary_Segment_Fields[0]->PaymentFrequency);
                               }
                               
                              ?></td>
-                          <td class="col-1"><span class="fw-600  "></span></td> 
+                          <?php
+
+                          if(isset($creditdata->Account_NonSummary_Segment_Fields[0]->WrittenOffAmountTotal)){
+                            ?>
+                            <td class="col-3" style="text-transform: uppercase;"><span class="fw-600  memtext">WRITTEN OFF (TOTAL):</span>
+
+                             <?php  echo IND_money_format($creditdata->Account_NonSummary_Segment_Fields[0]->WrittenOffAmountTotal); ?>
+
+                            </td> 
+                          <?php  
+                          }
+                          else
+                          {
+                          ?>
+                              <td class="col-1"><span class="fw-600  memtext"></span></td>
+                          <?php
+                          } 
+                          ?>
                         </tr>
 
                         <tr style="font-size:10px;">
-                          <td class="col-4"><span class="fw-600  ">TYPE: </span><?php 
+                          <td class="col-4"><span class="fw-600 memtext ">TYPE: </span><?php 
                               echo accounttype($creditdata->Account_NonSummary_Segment_Fields[0]->AccountType);
                              ?></td>
-                          <td class="col-4"><span class="fw-600  ">PMT HIST START:</span> <?php 
+                          <td class="col-4"><span class="fw-600  memtext">PMT HIST START:</span> <?php 
                               echo dateformater($creditdata->Account_NonSummary_Segment_Fields[0]->PaymentHistoryStartDate);
                              ?></td>
                           <td class="col-3"><span class="fw-600 "></td>
@@ -994,10 +1039,10 @@
                         </tr>
 
                         <tr style="font-size:10px;">
-                          <td class="col-4"><span class="fw-600  ">OWNERSHIP: </span><?php 
+                          <td class="col-4"><span class="fw-600 memtext  ">OWNERSHIP: </span><?php 
                               echo ownership($creditdata->Account_NonSummary_Segment_Fields[0]->OwenershipIndicator);
                              ?></td>
-                          <td class="col-4"><span class="fw-600  ">PMT HIST END:</span><?php 
+                          <td class="col-4"><span class="fw-600 memtext ">PMT HIST END:</span><?php 
                               echo dateformater($creditdata->Account_NonSummary_Segment_Fields[0]->PaymentHistoryEndDate);
                              ?></td>
                           <td class="col-3"><span class="fw-600 "></td>
@@ -1009,12 +1054,82 @@
                         </tr>
                         
                         <tr style="font-size:10px;">
-                          <td class="col-3"><span class="fw-600  ">000 </span></td>
-                          <td class="col-3"><span class="fw-600  ">000</span></td>
-                          <td class="col-3"><span class="fw-600 ">000</span></td>
-                          <td class="col-3"><span class="fw-600  ">000</span></td>
+                          <td class="col-3" colspan="4" >
+                            
+                                <?php
+                                $paymentstring="";
+
+                                  if(isset($creditdata->Account_NonSummary_Segment_Fields[0]->PaymentHistoryStartDate)){
+
+                                  }
+
+                                  if(isset($creditdata->Account_NonSummary_Segment_Fields[0]->PaymentHistory1)){
+
+                                    $paymentstring.=$creditdata->Account_NonSummary_Segment_Fields[0]->PaymentHistory1;
+                                  }
+
+                                  if(isset($creditdata->Account_NonSummary_Segment_Fields[0]->PaymentHistory2)){
+
+                                    $paymentstring.=$creditdata->Account_NonSummary_Segment_Fields[0]->PaymentHistory2;
+                                  }
+
+
+                                  
+                                  $stringarray=breakstring($paymentstring);
+                                  $datearray=getmonths($creditdata->Account_NonSummary_Segment_Fields[0]->PaymentHistoryStartDate,$creditdata->Account_NonSummary_Segment_Fields[0]->PaymentHistoryEndDate);
+                                  $datearray=array_reverse($datearray);
+
+                                  $datearray1=array_slice($datearray,0,18);
+                                  $datearray2=array_slice($datearray,18,18);
+
+                                  $stringarray1=array_slice($stringarray,0,18);
+                                  $stringarray2=array_slice($stringarray,18,18);
+
+                                 
+                                ?>
+                                <div class="myrow">
+                                <?php 
+
+                                foreach($stringarray1 as $key=>$string)
+                                {                                 
+
+                                ?>
+                                
+                                <div  class="column" style="text-align:center">
+                                <span style="font-size:14px;"><?php echo $string; ?></span><br><span style="font-size:10px;text-align: center;"><?php echo $datearray1[$key]; ?></span></div>
+                                
+                                <?php 
+                                } 
+                                ?>
+                                </div>
+
+                                <div class="myrow">
+                                <?php 
+
+                                foreach($stringarray2 as $key=>$string)
+                                {                                 
+
+                                ?>
+                                
+                                <div  class="column" style="text-align:center">
+                                <span style="font-size:14px;"><?php echo $string; ?></span><br><span style="font-size:10px;text-align: center;"><?php echo $datearray1[$key]; ?></span></div>
+                                
+                                <?php 
+                                } 
+                                ?>
+                                </div>
+
+                                
+                            
+                          </td>
+                          
                         </tr>
+
+                        </tbody>
+                        <table>
+                      </td>    
                     </tr>    
+                  
                     
                   <!-- Repeating parent row -->
 
@@ -1100,7 +1215,7 @@
 
      <h5 class="text-2 ">ENQUIRIES:</h5>
      <div class="table-responsive">
-      <table class="table  table-striped table-borderless text-1 table-sm">
+      <table class="table zebra_stripe table-striped table-borderless text-1 table-sm">
         <tbody>
           <tr style="font-size:10px;">
             <td class="col-3"><span class="fw-600 colorblue ">MEMBER</span></td>
@@ -1125,7 +1240,7 @@
             <td class="col-3"><?php echo $entabledata->EnquiringMemberShortName; ?></td>
             <td class="col-3"><?php echo dateformater($entabledata->DateOfEnquiryFields); ?></td>
             <td class="col-3"><?php echo $entabledata->EnquiryPurpose; ?></td>
-            <td class="col-3"><?php echo $entabledata->EnquiryAmount; ?></td> 
+            <td class="col-3"><?php echo IND_money_format($entabledata->EnquiryAmount); ?></td> 
           </tr>
             <?php 
             }
@@ -1151,8 +1266,9 @@
 
      <div><p class="colorblue fw-600">END OF REPORT ON <?php 
 
-            echo $data->response->NameSegment->ConsumerName1; 
+            echo $data->response->NameSegment->ConsumerName1 ." "; 
             checkisset($data->response->NameSegment,'ConsumerName2');
+            echo " ";
             checkisset($data->response->NameSegment,'ConsumerName3');
 
 
